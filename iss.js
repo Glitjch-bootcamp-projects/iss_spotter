@@ -4,7 +4,7 @@ const URL = `https://api.ipify.org?format=json`;
 const GEO = `https://api.freegeoip.app/json/?apikey=081e2860-7a6f-11ec-9ea3-4d009937e70e`;
 
 //fetch IP
-const fetchMyIP = function(callback) {
+const fetchMyIP = function (callback) {
   // use request to fetch IP address from JSON API
   request(URL, (error, response, body) => {
     if (error) {
@@ -18,7 +18,6 @@ const fetchMyIP = function(callback) {
       return;
     }
 
-    //body.body, containing the ip addy, is string type, therefore can JSONparse it into an object and retrive only the values (the actual ip address, without "ip")
     const parseBody = JSON.parse(body);
     const ip = parseBody.ip;
     callback(null, ip);
@@ -27,7 +26,7 @@ const fetchMyIP = function(callback) {
 
 
 //fetch coordinates
-const fetchCoordsByIP = function(ip, callback) {
+const fetchCoordsByIP = function (ip, callback) {
   // console.log(`ip Adress: `, ip);
   request(`${GEO}`, (error, response, body) => {
     if (error) {
@@ -51,7 +50,7 @@ const fetchCoordsByIP = function(ip, callback) {
 
 
 // ISS
-const fetchISSFlyOverTimes = function(coords, callback) {
+const fetchISSFlyOverTimes = function (coords, callback) {
   // console.log(`Coordinates from previous function`, coords);
 
   const latitude = coords.latitude;
@@ -74,7 +73,7 @@ const fetchISSFlyOverTimes = function(coords, callback) {
 };
 
 //solution from compass
-const nextISSTimesForMyLocation = function(callback) {
+const nextISSTimesForMyLocation = function (callback) {
   fetchMyIP((error, ip) => {
     if (error) {
       return callback(error, null);
